@@ -11,7 +11,7 @@ import couponRoutes from "./routes/coupon.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import analyticsRoutes from "./routes/analytics.route.js";
 import path from 'path';
-
+const path = require('path');
 import cookieParser from 'cookie-parser';
 
 import { connectDB } from './lib/db.js';
@@ -38,10 +38,18 @@ app.use("/api/coupons",couponRoutes);
 app.use("/api/payments",paymentRoutes);
 app.use("/api/analytics",analyticsRoutes);
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,'/frontend/build')));
-    app.get('*',(req,res)=>res.sendFile (path.resolve(__dirname,'frontend','build','index.html')));
+
+
+if (process.env.NODE_ENV === 'production') {
+    // Serve static files from the 'frontend/dist' directory
+    app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+    // Handle all other requests by serving the 'index.html' file
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+    });
 }
+
 app.listen(PORT, () => {    
     console.log("Server is running on http://localhost:"+PORT);
     connectDB();
