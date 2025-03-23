@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
+import path from 'path';
  // Check if the value is logged
 //  import cors from 'cors';
 
@@ -11,7 +12,7 @@ import couponRoutes from "./routes/coupon.route.js";
 import paymentRoutes from "./routes/payment.route.js";
 import analyticsRoutes from "./routes/analytics.route.js";
 import path from 'path';
-const path = require('path');
+
 import cookieParser from 'cookie-parser';
 
 import { connectDB } from './lib/db.js';
